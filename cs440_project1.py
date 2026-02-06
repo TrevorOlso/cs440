@@ -49,7 +49,7 @@ def log_error(step, command_str, error_msg):
     """Prints a standard error log line."""
     print(f"[step={step}] CMD={command_str} | ERROR | {error_msg}")
 
-#function for status printing correctly formatted based on project requirements. called upon interval, or is status command received.
+#function for status printing correctly formatted
 def print_status():
     """Prints the system state snapshot."""
     global running_process, ready_queue, waiting_queue, process_table
@@ -138,20 +138,79 @@ def main():
 
                 log_success(step_count, line, f"{proc.name}: READY -> RUNNING")
         elif command == "TICK":
-            pass # TODO: Implement TICK
+                #check if cpu is idle
+                if running_process is None:
+                    log_error(step_count, line, "no process is currently RUNNING")
+                #if running_process is not None, add n ticks to pc and cpuTime
+                else:
+                    n_ticks = int(parts[1])
+                    running_process.pc += n_ticks
+                    running_process.cpuTime += n_ticks
+                    log_success(step_count, line, f"{running_process.name}: pc+={n_ticks} cpuTime+={n_ticks}")
+            
+
         elif command == "BLOCK":
-            pass # TODO: Implement BLOCK
+            #check if cpu is idle
+            if running_process is None:
+                log_error(step_count, line, "no process is currently RUNNING")
+            #if cpu is busy: running --> waiting
+            else:
+                proc = running_process
+                proc.state = State.WAITING
+                waiting_queue.append(running_process)
+                running_process = None
+                log_success(step_count, line, f"{proc.name}: RUNNING -> WAITING")
+                
+
+
         elif command == "WAKE":
-            pass # TODO: Implement WAKE
+            #check if there's nothing in the waiting queue
+            if len(waiting_queue) == 0:
+                log_error(step_count, line, "no WAITING processes")
+            #if there's something in the waiting queue: waiting --> ready
+            else:
+               proc = waiting_queue.popleft()
+               proc.state = State.READY
+               ready_queue.append(proc)
+               log_success(step_count, line, f"{proc.name}: WAITING -> READY")
+               
+            
+
         elif command == "EXIT":
-            pass # TODO: Implement EXIT
+            if running_process is None:
+                log_error(step_count, line, "no process is currently RUNNING")
+            else:
+                running_process.state = State.TERMINATED
+                log_success(step_count, line, f"{running_process.name}: RUNNING -> TERMINATED")
+                running_process = None
+            
         elif command == "STATUS":
             log_success(step_count, line, "")
             print_status()
         elif command == "KILL":
-            pass # TODO: Extra Credit
-        else:
-            print(f"[step={step_count}] CMD={command} | ERROR | Unknown command")
+            name = parts[1]
+            #check if process exists or if process is already terminated, else kill it and remove from whatever queue it's in
+            if name not in process_table:
+                log_error(step_count, line, f"Process {name} does not exist")
+            elif process_table[name].state == State.TERMINATED:
+                log_error(step_count, line, f"Process {name} is already TERMINATED")
+            else:
+                proc = process_table[name]
+                old_state = proc.state
+                msg_extra = ""
+
+                if old_state == State.READY:
+                    ready_queue.remove(proc)
+                    msg_extra = "(removed from READY)"
+                elif old_state == State.WAITING:
+                    waiting_queue.remove(proc)
+                    msg_extra = "(removed from WAITING)"
+                elif old_state == State.RUNNING:
+                    running_process = None
+                    msg_extra = "(CPU now NONE)"
+
+                proc.state = State.TERMINATED
+                log_success(step_count, line, f"{proc.name}: {old_state.name} -> TERMINATED {msg_extra}")
         
 
         if step_count % auto_status_interval == 0:
