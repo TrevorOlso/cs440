@@ -54,19 +54,19 @@ def print_status():
     """Prints the system state snapshot."""
     global running_process, ready_queue, waiting_queue, process_table
     
-    # 1. RUNNING
+    # 1. running
     run_str = running_process.name if running_process else "NONE"
     print(f"RUNNING: {run_str}")
     
-    # 2. READY (Format: [P1, P3])
+    # 2. ready
     ready_names = [p.name for p in ready_queue]
     print(f"READY: [{', '.join(ready_names)}]")
     
-    # 3. WAITING (Format: [P2])
+    # 3. waiting
     waiting_names = [p.name for p in waiting_queue]
     print(f"WAITING: [{', '.join(waiting_names)}]")
     
-    # 4. TABLE
+    # 4. table
     print("TABLE:")
     # Header 
     print(f"{'PID':<5} {'NAME':<10} {'STATE':<12} {'PRIO':<6} {'PC':<5} {'CPUTIME':<8}")
@@ -98,7 +98,7 @@ def main():
 
     print(f"BearID last digit: {N}")
     print(f"Auto status every {auto_status_interval} steps")
-    print("---- BEGIN LOG ----")
+    print("\n---- BEGIN LOG ----\n")
 
     for line in lines:
         line = line.strip()
@@ -156,6 +156,6 @@ def main():
 
         if step_count % auto_status_interval == 0:
             print_status()
-    print("--- END LOG ---")
+    print("\n--- END LOG ---\n")
 if __name__ == "__main__":
     main()
