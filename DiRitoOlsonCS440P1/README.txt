@@ -8,6 +8,10 @@
     waiting queue. If BLOCK was performed on a running process before this command, it would
     have been legal (a proccess would have been in waiting) but due to no commands that would
     send a process to the waiting queue, it could not be performed.
+
+    We also noticed that in trace2_errors.txt, some calls were made to processes that it did not apply to. For example,
+    the txt file calls EXIT P3 while P1 is currently running, so instead of moving P1 to TERMINATED, the sytem throws an error
+    saying "P3 is not currently RUNNING."
 3. Process Lifecycle
     Process P1:
     P1 was created with the first command and moved from NEW to READY.

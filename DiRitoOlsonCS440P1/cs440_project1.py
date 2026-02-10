@@ -150,6 +150,9 @@ def main():
             #check if cpu is idle
             if running_process is None:
                 log_error(step_count, line, "no process is currently RUNNING")
+            # check if running process matches process called to block
+            elif parts[1] and running_process.name != parts[1]:
+                log_error(step_count, line, f"{parts[1]} is not currently RUNNING")
             #if cpu is busy: running --> waiting
             else:
                 proc = running_process
@@ -161,21 +164,29 @@ def main():
 
 
         elif command == "WAKE":
-            #check if there's nothing in the waiting queue
-            if len(waiting_queue) == 0:
-                log_error(step_count, line, "no WAITING processes")
-            #if there's something in the waiting queue: waiting --> ready
+            found_proc = None
+            #check if process exists in waiting queue 
+            for proc in waiting_queue:
+                if proc.name == parts[1]:
+                    found_proc = proc
+                    break
+            if found_proc is None:
+                log_error(step_count, line, f"{parts[1]} not in WAITING queue")
+            # if found, remove from waiting and move to ready queue
             else:
-               proc = waiting_queue.popleft()
-               proc.state = State.READY
-               ready_queue.append(proc)
-               log_success(step_count, line, f"{proc.name}: WAITING -> READY")
+               waiting_queue.remove(found_proc)
+               found_proc.state = State.READY
+               ready_queue.append(found_proc)
+               log_success(step_count, line, f"{found_proc.name}: WAITING -> READY")
                
             
 
         elif command == "EXIT":
             if running_process is None:
                 log_error(step_count, line, "no process is currently RUNNING")
+            # check if running process matches process called to exit
+            elif parts[1] and running_process.name != parts[1]:
+                log_error(step_count, line, f"{parts[1]} is not currently RUNNING")
             else:
                 running_process.state = State.TERMINATED
                 log_success(step_count, line, f"{running_process.name}: RUNNING -> TERMINATED")
