@@ -1,0 +1,365 @@
+
+=== B. Two-level (UNBATCHED) ===
+Parents: 50
+Children per parent: 99
+Output grouping: 25 threads
+Total threads: 5000
+
+Start time: 22558813182304 ns
+
+Parent 1 started
+Parent 1 created children: 1-1 ... 1-25
+Parent 2 started
+Parent 3 started
+Parent 4 started
+Parent 2 created children: 2-1 ... 2-25
+Parent 5 started
+Parent 3 created children: 3-1 ... 3-25
+Parent 6 started
+Parent 6 created children: 6-1 ... 6-25
+Parent 5 created children: 5-1 ... 5-25
+Parent 7 started
+Parent 7 created children: 7-1 ... 7-25
+Parent 8 started
+Parent 4 created children: 4-1 ... 4-25
+Parent 9 started
+Parent 10 started
+Parent 8 created children: 8-1 ... 8-25
+Parent 10 created children: 10-1 ... 10-25
+Parent 11 started
+Parent 9 created children: 9-1 ... 9-25
+Parent 13 started
+Parent 12 started
+Parent 11 created children: 11-1 ... 11-25
+Parent 13 created children: 13-1 ... 13-25
+Parent 14 started
+Parent 12 created children: 12-1 ... 12-25
+Parent 14 created children: 14-1 ... 14-25
+Parent 15 started
+Parent 16 started
+Parent 15 created children: 15-1 ... 15-25
+Parent 2 created children: 2-26 ... 2-50
+Parent 16 created children: 16-1 ... 16-25
+Parent 17 started
+Parent 18 started
+Parent 1 created children: 1-26 ... 1-50
+Parent 18 created children: 18-1 ... 18-25
+Parent 19 started
+Parent 20 started
+Parent 19 created children: 19-1 ... 19-25
+Parent 20 created children: 20-1 ... 20-25
+Parent 3 created children: 3-26 ... 3-50
+Parent 21 started
+Parent 22 started
+Parent 22 created children: 22-1 ... 22-25
+Parent 21 created children: 21-1 ... 21-25
+Parent 23 started
+Parent 17 created children: 17-1 ... 17-25
+Parent 5 created children: 5-26 ... 5-50
+Parent 24 started
+Parent 25 started
+Parent 25 created children: 25-1 ... 25-25
+Parent 23 created children: 23-1 ... 23-25
+Parent 24 created children: 24-1 ... 24-25
+Parent 26 started
+Parent 26 created children: 26-1 ... 26-25
+Parent 27 started
+Parent 28 started
+Parent 28 created children: 28-1 ... 28-25
+Parent 27 created children: 27-1 ... 27-25
+Parent 29 started
+Parent 7 created children: 7-26 ... 7-50
+Parent 30 started
+Parent 8 created children: 8-26 ... 8-50
+Parent 29 created children: 29-1 ... 29-25
+Parent 30 created children: 30-1 ... 30-25
+Parent 31 started
+Parent 11 created children: 11-26 ... 11-50
+Parent 4 created children: 4-26 ... 4-50
+Parent 10 created children: 10-26 ... 10-50
+Parent 31 created children: 31-1 ... 31-25
+Parent 32 started
+Parent 33 started
+Parent 33 created children: 33-1 ... 33-25
+Parent 32 created children: 32-1 ... 32-25
+Parent 34 started
+Parent 34 created children: 34-1 ... 34-25
+Parent 6 created children: 6-26 ... 6-50
+Parent 35 started
+Parent 36 started
+Parent 35 created children: 35-1 ... 35-25
+Parent 15 created children: 15-26 ... 15-50
+Parent 37 started
+Parent 12 created children: 12-26 ... 12-50
+Parent 9 created children: 9-26 ... 9-50
+Parent 37 created children: 37-1 ... 37-25
+Parent 36 created children: 36-1 ... 36-25
+Parent 38 started
+Parent 13 created children: 13-26 ... 13-50
+Parent 16 created children: 16-26 ... 16-50
+Parent 39 started
+Parent 39 created children: 39-1 ... 39-25
+Parent 40 started
+Parent 38 created children: 38-1 ... 38-25
+Parent 14 created children: 14-26 ... 14-50
+Parent 41 started
+Parent 41 created children: 41-1 ... 41-25
+Parent 42 started
+Parent 40 created children: 40-1 ... 40-25
+Parent 25 created children: 25-26 ... 25-50
+Parent 43 started
+Parent 43 created children: 43-1 ... 43-25
+Parent 42 created children: 42-1 ... 42-25
+Parent 19 created children: 19-26 ... 19-50
+Parent 44 started
+Parent 22 created children: 22-26 ... 22-50
+Parent 44 created children: 44-1 ... 44-25
+Parent 45 started
+Parent 23 created children: 23-26 ... 23-50
+Parent 1 created children: 1-51 ... 1-75
+Parent 45 created children: 45-1 ... 45-25
+Parent 46 started
+Parent 21 created children: 21-26 ... 21-50
+Parent 2 created children: 2-51 ... 2-75
+Parent 46 created children: 46-1 ... 46-25
+Parent 47 started
+Parent 47 created children: 47-1 ... 47-25
+Parent 17 created children: 17-26 ... 17-50
+Parent 48 started
+Parent 20 created children: 20-26 ... 20-50
+Parent 27 created children: 27-26 ... 27-50
+Parent 18 created children: 18-26 ... 18-50
+Parent 49 started
+Parent 48 created children: 48-1 ... 48-25
+Parent 3 created children: 3-51 ... 3-75
+Parent 5 created children: 5-51 ... 5-75
+Parent 49 created children: 49-1 ... 49-25
+Parent 34 created children: 34-26 ... 34-50
+Parent 31 created children: 31-26 ... 31-50
+Parent 50 started
+Parent 50 created children: 50-1 ... 50-25
+Parent 15 created children: 15-51 ... 15-75
+Parent 7 created children: 7-51 ... 7-75
+Parent 24 created children: 24-26 ... 24-50
+Parent 4 created children: 4-51 ... 4-75
+Parent 32 created children: 32-26 ... 32-50
+Parent 28 created children: 28-26 ... 28-50
+Parent 30 created children: 30-26 ... 30-50
+Parent 26 created children: 26-26 ... 26-50
+Parent 12 created children: 12-51 ... 12-75
+Parent 33 created children: 33-26 ... 33-50
+Parent 8 created children: 8-51 ... 8-75
+Parent 13 created children: 13-51 ... 13-75
+Parent 6 created children: 6-51 ... 6-75
+Parent 39 created children: 39-26 ... 39-50
+Parent 42 created children: 42-26 ... 42-50
+Parent 16 created children: 16-51 ... 16-75
+Parent 11 created children: 11-51 ... 11-75
+Parent 10 created children: 10-51 ... 10-75
+Parent 9 created children: 9-51 ... 9-75
+Parent 35 created children: 35-26 ... 35-50
+Parent 14 created children: 14-51 ... 14-75
+Parent 41 created children: 41-26 ... 41-50
+Parent 1 created children: 1-76 ... 1-99
+Parent 29 created children: 29-26 ... 29-50
+Parent 45 created children: 45-26 ... 45-50
+Parent 36 created children: 36-26 ... 36-50
+Parent 22 created children: 22-51 ... 22-75
+Parent 38 created children: 38-26 ... 38-50
+Parent 37 created children: 37-26 ... 37-50
+Parent 25 created children: 25-51 ... 25-75
+Parent 18 created children: 18-51 ... 18-75
+Parent 19 created children: 19-51 ... 19-75
+Parent 47 created children: 47-26 ... 47-50
+Parent 2 created children: 2-76 ... 2-99
+Parent 27 created children: 27-51 ... 27-75
+Parent 21 created children: 21-51 ... 21-75
+Parent 43 created children: 43-26 ... 43-50
+Parent 34 created children: 34-51 ... 34-75
+Parent 44 created children: 44-26 ... 44-50
+Parent 49 created children: 49-26 ... 49-50
+Parent 23 created children: 23-51 ... 23-75
+Parent 50 created children: 50-26 ... 50-50
+Parent 20 created children: 20-51 ... 20-75
+Parent 26 created children: 26-51 ... 26-75
+Parent 30 created children: 30-51 ... 30-75
+Parent 17 created children: 17-51 ... 17-75
+Parent 15 created children: 15-76 ... 15-99
+Parent 16 created children: 16-76 ... 16-99
+Parent 6 created children: 6-76 ... 6-99
+Parent 40 created children: 40-26 ... 40-50
+Parent 32 created children: 32-51 ... 32-75
+Parent 8 created children: 8-76 ... 8-99
+Parent 3 created children: 3-76 ... 3-99
+Parent 48 created children: 48-26 ... 48-50
+Parent 7 created children: 7-76 ... 7-99
+Parent 5 created children: 5-76 ... 5-99
+Parent 31 created children: 31-51 ... 31-75
+Parent 28 created children: 28-51 ... 28-75
+Parent 4 created children: 4-76 ... 4-99
+Parent 24 created children: 24-51 ... 24-75
+Parent 14 created children: 14-76 ... 14-99
+Parent 46 created children: 46-26 ... 46-50
+Parent 33 created children: 33-51 ... 33-75
+Parent 9 created children: 9-76 ... 9-99
+Parent 21 created children: 21-76 ... 21-99
+Parent 36 created children: 36-51 ... 36-75
+Parent 38 created children: 38-51 ... 38-75
+Parent 39 created children: 39-51 ... 39-75
+Parent 13 created children: 13-76 ... 13-99
+Parent 2 joined children: 2-99 ... 2-1
+Parent 47 created children: 47-51 ... 47-75
+Parent 12 created children: 12-76 ... 12-99
+Parent 2 completed
+Parent 10 created children: 10-76 ... 10-99
+Parent 35 created children: 35-51 ... 35-75
+Parent 16 joined children: 16-99 ... 16-1
+Parent 22 created children: 22-76 ... 22-99
+Parent 34 created children: 34-76 ... 34-99
+Parent 11 created children: 11-76 ... 11-99
+Parent 45 created children: 45-51 ... 45-75
+Parent 18 created children: 18-76 ... 18-99
+Parent 25 created children: 25-76 ... 25-99
+Parent 41 created children: 41-51 ... 41-75
+Parent 16 completed
+Parent 19 created children: 19-76 ... 19-99
+Parent 29 created children: 29-51 ... 29-75
+Parent 1 joined children: 1-99 ... 1-1
+Parent 42 created children: 42-51 ... 42-75
+Parent 8 joined children: 8-99 ... 8-1
+Parent 1 completed
+Parent 43 created children: 43-51 ... 43-75
+Parent 27 created children: 27-76 ... 27-99
+Parent 30 created children: 30-76 ... 30-99
+Parent 50 created children: 50-51 ... 50-75
+Parent 15 joined children: 15-99 ... 15-1
+Parent 8 completed
+Parent 44 created children: 44-51 ... 44-75
+Parent 48 created children: 48-51 ... 48-75
+Parent 37 created children: 37-51 ... 37-75
+Parent 49 created children: 49-51 ... 49-75
+Parent 15 completed
+Parent 5 joined children: 5-99 ... 5-1
+Parent 26 created children: 26-76 ... 26-99
+Parent 20 created children: 20-76 ... 20-99
+Parent 14 joined children: 14-99 ... 14-1
+Parent 23 created children: 23-76 ... 23-99
+Parent 32 created children: 32-76 ... 32-99
+Parent 31 created children: 31-76 ... 31-99
+Parent 40 created children: 40-51 ... 40-75
+Parent 6 joined children: 6-99 ... 6-1
+Parent 5 completed
+Parent 4 joined children: 4-99 ... 4-1
+Parent 28 created children: 28-76 ... 28-99
+Parent 39 created children: 39-76 ... 39-99
+Parent 4 completed
+Parent 17 created children: 17-76 ... 17-99
+Parent 14 completed
+Parent 7 joined children: 7-99 ... 7-1
+Parent 6 completed
+Parent 24 created children: 24-76 ... 24-99
+Parent 34 joined children: 34-99 ... 34-1
+Parent 7 completed
+Parent 48 created children: 48-76 ... 48-99
+Parent 35 created children: 35-76 ... 35-99
+Parent 12 joined children: 12-99 ... 12-1
+Parent 34 completed
+Parent 19 joined children: 19-99 ... 19-1
+Parent 3 joined children: 3-99 ... 3-1
+Parent 47 created children: 47-76 ... 47-99
+Parent 46 created children: 46-51 ... 46-75
+Parent 33 created children: 33-76 ... 33-99
+Parent 42 created children: 42-76 ... 42-99
+Parent 10 joined children: 10-99 ... 10-1
+Parent 21 joined children: 21-99 ... 21-1
+Parent 22 joined children: 22-99 ... 22-1
+Parent 9 joined children: 9-99 ... 9-1
+Parent 11 joined children: 11-99 ... 11-1
+Parent 36 created children: 36-76 ... 36-99
+Parent 13 joined children: 13-99 ... 13-1
+Parent 50 created children: 50-76 ... 50-99
+Parent 12 completed
+Parent 18 joined children: 18-99 ... 18-1
+Parent 30 joined children: 30-99 ... 30-1
+Parent 28 joined children: 28-99 ... 28-1
+Parent 44 created children: 44-76 ... 44-99
+Parent 9 completed
+Parent 29 created children: 29-76 ... 29-99
+Parent 21 completed
+Parent 3 completed
+Parent 41 created children: 41-76 ... 41-99
+Parent 25 joined children: 25-99 ... 25-1
+Parent 45 created children: 45-76 ... 45-99
+Parent 11 completed
+Parent 49 created children: 49-76 ... 49-99
+Parent 20 joined children: 20-99 ... 20-1
+Parent 22 completed
+Parent 37 created children: 37-76 ... 37-99
+Parent 10 completed
+Parent 27 joined children: 27-99 ... 27-1
+Parent 33 joined children: 33-99 ... 33-1
+Parent 20 completed
+Parent 30 completed
+Parent 43 created children: 43-76 ... 43-99
+Parent 38 created children: 38-76 ... 38-99
+Parent 18 completed
+Parent 19 completed
+Parent 39 joined children: 39-99 ... 39-1
+Parent 13 completed
+Parent 35 joined children: 35-99 ... 35-1
+Parent 31 joined children: 31-99 ... 31-1
+Parent 28 completed
+Parent 17 joined children: 17-99 ... 17-1
+Parent 48 joined children: 48-99 ... 48-1
+Parent 27 completed
+Parent 23 joined children: 23-99 ... 23-1
+Parent 50 joined children: 50-99 ... 50-1
+Parent 29 joined children: 29-99 ... 29-1
+Parent 46 created children: 46-76 ... 46-99
+Parent 36 joined children: 36-99 ... 36-1
+Parent 40 created children: 40-76 ... 40-99
+Parent 32 joined children: 32-99 ... 32-1
+Parent 24 joined children: 24-99 ... 24-1
+Parent 43 joined children: 43-99 ... 43-1
+Parent 41 joined children: 41-99 ... 41-1
+Parent 44 joined children: 44-99 ... 44-1
+Parent 37 joined children: 37-99 ... 37-1
+Parent 48 completed
+Parent 47 joined children: 47-99 ... 47-1
+Parent 39 completed
+Parent 49 joined children: 49-99 ... 49-1
+Parent 42 joined children: 42-99 ... 42-1
+Parent 26 joined children: 26-99 ... 26-1
+Parent 31 completed
+Parent 32 completed
+Parent 45 joined children: 45-99 ... 45-1
+Parent 38 joined children: 38-99 ... 38-1
+Parent 24 completed
+Parent 35 completed
+Parent 41 completed
+Parent 25 completed
+Parent 40 joined children: 40-99 ... 40-1
+Parent 36 completed
+Parent 46 joined children: 46-99 ... 46-1
+Parent 50 completed
+Parent 29 completed
+Parent 37 completed
+Parent 23 completed
+Parent 38 completed
+Parent 17 completed
+Parent 33 completed
+Parent 46 completed
+Parent 42 completed
+Parent 26 completed
+Parent 47 completed
+Parent 45 completed
+Parent 44 completed
+Parent 49 completed
+Parent 43 completed
+Parent 40 completed
+
+End time: 22559114946853 ns
+Time elapsed: 301.765 ms
+
+Threads created:   5000
+Threads destroyed: 5000
