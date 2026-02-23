@@ -414,12 +414,12 @@ int main(void) {
     // TODO: run 3 trials each and compute averages in your report.
 
     reset_counts();
-    //run2a_flat_no_batching();
+    // run2a_flat_no_batching();
     // reset_counts();
     // run2a_flat_batched(A_BATCH_SIZE);
 
     reset_counts();
-    //run2b_two_level_no_batching();
+    // run2b_two_level_no_batching();
     // reset_counts();
     // run2b_two_level_batched(B_CHILD_BATCH_SIZE);
 
