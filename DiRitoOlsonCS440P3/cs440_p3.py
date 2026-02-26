@@ -5,6 +5,9 @@ Names: Tobias DiRito, Trevor Olson
 Date: 2026-03-14
 
 """
+import random
+import math
+
 
 random_seed = 0
 num_processes = 0
@@ -13,6 +16,7 @@ maximum_burst_t = 0
 RR_quantum = 0
 context_switch_latency = 0
 processes = []
+
 # process object
 class Process():
     def __init__(self, name, arrival, burst):
@@ -59,7 +63,21 @@ def main():
     RR_quantum = try_input(RR_quantum, "Enter RR quantum (1-100): ")
     context_switch_latency = try_input(context_switch_latency, "Enter context-switch latency (0-10): ")
 
+    random.seed(random_seed)
+
+    for i in range(1, num_processes + 1):
+        arrival = random.randint(0, last_arrival_t)
+
+        burst = random.randint(1, maximum_burst_t)
+
+        name = f"P{i}"
+
+        processes.append(Process(name, arrival, burst))
     
+    for p in processes:
+        print(f"{p.name}: arrival={p.arrival}, burst={p.burst}")
+    print(f"Context-switch latency L={context_switch_latency}")
+    print(f"RR quantum q={RR_quantum}")
     
     
 
