@@ -1,19 +1,17 @@
 /*
- * CS 440 Project 2 � POSIX (pthreads) TEMPLATE
+ * CS 440 Project 2
  * Name(s): Tobias DiRito, Trevor Olson
- * Date: 02/23/2026
+ * Date: 02/26/2026
  *
  * Goal: Implement 2.a / 2.b / 2.c so that EACH experiment creates/destroys
  * exactly N_TOTAL threads (including all parent/initial/child/grandchild threads).
- *
- * Includes:
- *  - skeleton runners for 2.a, 2.b, 2.c (non-batched)
- *  - skeleton runners for batching fallback
- *
- * Students: Fill in TODO blocks. Keep printing sparse.
- *
+ * 
  * Build:
- *   cc -O2 -Wall -Wextra -pedantic -pthread project2_posix_template.c -o project2
+ * RUN IN WSL
+ *  Compile:
+ *   cc -O2 -Wall -Wextra -pedantic -pthread cs440project2.c -o project2
+ *  Execute:
+ *   ./project2
  */
 
 #define _POSIX_C_SOURCE 200809L
@@ -80,13 +78,11 @@ static void die_pthread(int rc, const char *where) {
 // 2.a � Flat workers
 // ============================================================
 typedef struct {
-    int id; // optional
+    int id; 
 } flat_arg_t;
 
 static void *flat_worker(void *arg) {
     (void)arg;
-    // TODO: optional minimal work
-    // TODO: optional sparse print using id
     atomic_fetch_add(&g_destroyed, 1);
     return NULL;
 }
@@ -111,7 +107,7 @@ static void run2a_flat_no_batching(void) {
     for (int i = 0; i < N_TOTAL; i++) {
         int t_id = i + 1; // thread IDs 1 to 5000
         
-        // Print the grouping header every 25 threads
+        // Print every 25 threads like in the example
         if (t_id % 25 == 1) {
             int end_id = t_id + 24;
             if (end_id > N_TOTAL) end_id = N_TOTAL;
@@ -130,7 +126,7 @@ static void run2a_flat_no_batching(void) {
     for (int i = N_TOTAL - 1; i >= 0; i--) {
         int t_id = i + 1;
         
-        // Print the grouping header every 25 threads, counting backwardss
+        // Print the every 25 threads, looping backawrds
         if (t_id % 25 == 0) {
             int start_id = t_id - 24;
             if (start_id < 1) start_id = 1;
@@ -167,12 +163,12 @@ static void run2a_flat_no_batching(void) {
 // ============================================================
 typedef struct {
     int parent_id;
-    // TODO: optional fields for sparse printing
+    
 } parent_arg_t;
 
 static void *child_worker_2b(void *arg) {
     (void)arg;
-    // TODO: minimal work
+    
     atomic_fetch_add(&g_destroyed, 1);
     return NULL;
 }
@@ -184,7 +180,7 @@ static void *parent_worker_2b_no_batching(void *arg) {
 
     // create B_CHILDREN_PER_PARENT child threads
     //   - allocate pthread_t children[B_CHILDREN_PER_PARENT]
-    //   - loop child_id: atomic_fetch_add(&g_created, 1); pthread_create(...)
+    //   - loop child_id
     
     pthread_t *children = (pthread_t *)malloc(sizeof(pthread_t) * B_CHILDREN_PER_PARENT);
     for (int i = 0; i < B_CHILDREN_PER_PARENT; i++) {
@@ -276,7 +272,7 @@ typedef struct {
 
 static void *grandchild_worker_2c(void *arg) {
     (void)arg;
-    // TODO: minimal work
+    
     atomic_fetch_add(&g_destroyed, 1);
     return NULL;
 }
@@ -411,22 +407,21 @@ static void run2c_three_level_no_batching(void) {
 // main
 // ============================================================
 int main(void) {
-    // TODO: run 3 trials each and compute averages in your report.
 
     reset_counts();
-    // run2a_flat_no_batching();
-    // reset_counts();
-    // run2a_flat_batched(A_BATCH_SIZE);
+    run2a_flat_no_batching();
+     reset_counts();
+    
 
     reset_counts();
-    // run2b_two_level_no_batching();
-    // reset_counts();
-    // run2b_two_level_batched(B_CHILD_BATCH_SIZE);
+     run2b_two_level_no_batching();
+     reset_counts();
+    
 
     reset_counts();
     run2c_three_level_no_batching();
-    // reset_counts();
-    // run2c_three_level_batched(C_GRANDCHILD_BATCH_SIZE);
+    reset_counts();
+    
 
     return 0;
 }
