@@ -129,6 +129,7 @@ def try_input(var, s):
     while True:
         try:
             var = int(input(s))
+            # print(var) # only use when writing output to file, comment out otherwise
             return var
         except ValueError:
             print("Invalid input! Please enter an integer")
