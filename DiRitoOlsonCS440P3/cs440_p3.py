@@ -8,7 +8,6 @@ Date: 2026-03-14
 import random
 import math
 
-
 random_seed = 0
 num_processes = 0
 last_arrival_t = 0
@@ -25,11 +24,44 @@ class Process():
         self.burst = burst
 
 # FCFS
-def FCFS(random_seed, num_processes, last_arrival_t, maximum_burst_t, context_switch_latency):
-    pass
+def FCFS():
+    print("\nFCFS:")
 
+    fcfs_queue = sorted(processes, key=lambda p: p.arrival)
+    current_time = 0
+    context_switches = 0
+    sum_response = 0
+    sum_wait = 0
+
+    for i, p in enumerate(fcfs_queue):
+        if current_time < p.arrival:
+            current_time = p.arrival
+        if i > 0:
+            context_switches += 1
+            if context_switch_latency > 0:
+                print(f"@ t={current_time}, context switch {context_switches} occurs")
+                current_time += context_switch_latency
+        first_start = current_time
+        print(f"@ t={current_time}, {p.name} selected for {p.burst} units")
+        current_time += p.burst
+        completion = current_time
+        response_time = first_start - p.arrival
+        waiting_time = first_start - p.arrival
+
+        sum_response += response_time
+        sum_wait += waiting_time
+        if i == num_processes - 1:
+            print(f"@t={current_time}, all processes complete.")
+    print(f"Completed in {current_time} cycles.")
+    avg_response = sum_response / num_processes
+    avg_wait = sum_wait / num_processes
+
+    print(f"Average response time = {avg_response:.2f}")
+    print(f"Average waiting time = {avg_wait:.2f}")
+    
+    return current_time, avg_wait, avg_response
 # SJF
-def SJF(random_seed, num_processes, last_arrival_t, maximum_burst_t, context_switch_latency):
+def SJF():
     pass
 
 # SRTF
@@ -74,10 +106,16 @@ def main():
 
         processes.append(Process(name, arrival, burst))
     
+    
     for p in processes:
         print(f"{p.name}: arrival={p.arrival}, burst={p.burst}")
+
     print(f"Context-switch latency L={context_switch_latency}")
     print(f"RR quantum q={RR_quantum}")
+
+    FCFS()
+
+
     
     
 
