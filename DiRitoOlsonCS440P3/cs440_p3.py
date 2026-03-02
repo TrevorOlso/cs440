@@ -117,11 +117,11 @@ def SRTF():
     pass
 
 # RR
-def RR(random_seed, num_processes, last_arrival_t, maximum_burst_t, context_switch_latency, RR_quantum):
+def RR():
     pass
 
 # Random Selection
-def RS(random_seed, num_processes, last_arrival_t, maximum_burst_t, context_switch_latency):
+def RS():
     pass
 
 #user input error detection
