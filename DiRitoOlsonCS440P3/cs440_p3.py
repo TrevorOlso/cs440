@@ -6,7 +6,7 @@ Date: 2026-03-14
 """
 import random
 
-# --- GLOBALS ---
+# global vars
 random_seed = 0
 num_processes = 0
 last_arrival_t = 0
@@ -21,12 +21,13 @@ class Process:
         self.arrival = arrival
         self.burst = burst
 
-# --- HELPER FUNCTIONS ---
+# helper functions
 def try_input(prompt_string, min_val, max_val):
     while True:
         try:
             val = int(input(prompt_string))
             if min_val <= val <= max_val:
+                print(val) # for showing user input values in txt file
                 return val
             else:
                 print(f"Error: Value must be between {min_val} and {max_val}.")
@@ -46,12 +47,13 @@ def print_metrics(total_cycles, first_start, completion_t):
     avg_response = sum_response / num_processes
     avg_wait = sum_wait / num_processes
     
-    print(f"Avg wait = {avg_wait:.2f}")
-    print(f"Avg response = {avg_response:.2f}")
+    
+    print(f"Average response time = {avg_response:.2f}")
+    print(f"Average waiting time = {avg_wait:.2f}")
     
     return total_cycles, avg_wait, avg_response
 
-# --- ALGORITHMS ---
+# scheduling algorithms
 
 def FCFS():
     print("\nFCFS Trace:")
@@ -62,10 +64,13 @@ def FCFS():
     completion_t = {}
 
     for i, p in enumerate(fcfs_queue):
+        idle_jump = False
+
         if current_time < p.arrival:
-            current_time = p.arrival # Jump idle time
+            current_time = p.arrival # jump idle time if no processes have arrived yet
+            idle_jump = True
             
-        if i > 0 and current_time >= fcfs_queue[i-1].arrival:
+        if i > 0 and not idle_jump:
             context_switches += 1
             if context_switch_latency > 0:
                 print(f"@t={current_time} context switch {context_switches} occurs")
@@ -90,15 +95,18 @@ def SJF():
 
     while incomplete:
         ready = [p for p in incomplete if p.arrival <= current_time]
+        # check if no processes have arrived, update current time, and restart loop
         if not ready:
             incomplete.sort(key=lambda p: p.arrival)
             current_time = incomplete[0].arrival
             last_process = None
             continue
 
+        #sort by burst time, then arrival time for tiebreaker if burst is equal
         ready.sort(key=lambda p: (p.burst, p.arrival))
         active_process = ready[0]
 
+        # perform context switch if necessary
         if last_process is not None and active_process.name != last_process:
             context_switches += 1
             if context_switch_latency > 0:
@@ -131,6 +139,7 @@ def SRTF():
     current_running_proc = None
     run_duration = 0
     
+    # works as a buffer to count cycles that a process has run, and output accumulated block tim
     def flush_print():
         nonlocal current_running_proc, run_start_time, run_duration
         if current_running_proc is not None and run_duration > 0:
@@ -148,15 +157,18 @@ def SRTF():
             last_process = None
             continue
             
+        # finds minimum remaining time in the ready processes     
         min_rem = min(remaining_t[p.name] for p in ready)
         candidates = [p for p in ready if remaining_t[p.name] == min_rem]
         
+        # checks smaller processes to preempt
         if last_process in [c.name for c in candidates]:
             best_proc = next(c for c in candidates if c.name == last_process)
         else:
             candidates.sort(key=lambda p: p.arrival)
             best_proc = candidates[0]
             
+        # perform context siwtch if best_proc is different from last_process
         if last_process is not None and best_proc.name != last_process:
             flush_print()
             context_switches += 1
@@ -201,14 +213,19 @@ def RR():
     queue = []
     
     while completed < num_processes:
+
+        #scan for new arrivals given current_time
         new_arrivals = [p for p in processes if p.arrival <= current_time and remaining_t[p.name] > 0 and p not in queue and p.name != last_process]
         new_arrivals.sort(key=lambda p: p.arrival)
         queue.extend(new_arrivals)
         
+        # requeues the preempted process if unfinished
         if last_process is not None and remaining_t[last_process] > 0:
             proc_obj = next(p for p in processes if p.name == last_process)
             queue.append(proc_obj)
 
+
+        #handle idle jumps
         if not queue:
             next_arr = min(p.arrival for p in processes if p.arrival > current_time and remaining_t[p.name] > 0)
             current_time = next_arr
@@ -217,6 +234,7 @@ def RR():
 
         active_process = queue.pop(0)
 
+        # perform context switch if necessary
         if last_process is not None and active_process.name != last_process:
             context_switches += 1
             if context_switch_latency > 0:
@@ -229,24 +247,25 @@ def RR():
         if first_start[active_process.name] == -1:
             first_start[active_process.name] = current_time
 
+        #runs for the given time quantum IF it is more than the remining time left for said process
         run_time = min(RR_quantum, remaining_t[active_process.name])
         print(f"@t={current_time} {active_process.name} runs {run_time}")
         
         current_time += run_time
         remaining_t[active_process.name] -= run_time
         
+
         if remaining_t[active_process.name] == 0:
             completion_t[active_process.name] = current_time
             completed += 1
-            last_process = None 
-        else:
-            last_process = active_process.name
+            
+        last_process = active_process.name
 
     print(f"Completed in {current_time} cycles.")
     return print_metrics(current_time, first_start, completion_t)
 
 def Random_Sched():
-    print("\nRandom Trace (one possible order):")
+    print("\nRandom Trace:")
     incomplete = processes.copy()
     current_time = 0
     context_switches = 0
@@ -262,6 +281,7 @@ def Random_Sched():
             last_process = None
             continue
 
+        #randomly selects a process to run
         active_process = random.choice(ready)
 
         if last_process is not None and active_process.name != last_process:
@@ -299,7 +319,8 @@ def main():
         burst = random.randint(1, maximum_burst_t)
         processes.append(Process(f"P{i}", arrival, burst))
     
-    print("\nExample process set:")
+
+    print("\nProcess set:")
     for p in processes:
         print(f"{p.name}: arrival={p.arrival}, burst={p.burst}")
 
