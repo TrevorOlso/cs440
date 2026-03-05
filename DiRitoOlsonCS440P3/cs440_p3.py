@@ -320,6 +320,7 @@ def main():
         processes.append(Process(f"P{i}", arrival, burst))
     
 
+
     print("\nProcess set:")
     for p in processes:
         print(f"{p.name}: arrival={p.arrival}, burst={p.burst}")
