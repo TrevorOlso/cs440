@@ -17,6 +17,7 @@ def get_valid_input(prompt, min_val, max_val):
         try:
             value = int(input(prompt))
             if min_val <= value <= max_val:
+                print(value)
                 return value
             else:
                 print(f"Please enter a number between {min_val} and {max_val}.")
