@@ -1,3 +1,7 @@
+# Tobias DiRito, Trevor Olson
+# CS440 Project 4 Submission
+
+
 import random
 import string
 
@@ -10,11 +14,12 @@ WRAP = 40
 # Input helpers
 
 def get_valid_input(prompt, min_val, max_val):
-    """Prompt until the user enters an integer in [min_val, max_val]."""
+    # Prompt until the user enters an integer in range [min_val, max_val]
     while True:
         try:
             value = int(input(prompt))
             if min_val <= value <= max_val:
+                print(value)
                 return value
             print(f"  Please enter a number between {min_val} and {max_val}.")
         except ValueError:
@@ -24,13 +29,13 @@ def get_valid_input(prompt, min_val, max_val):
 # Simulation helpers
 
 def _make_history(n, num_slots):
-    """Return a blank (space-filled) history grid and empty marker list."""
+    # creatse a blank grid to store cache history for correct printing
     history = [[' '] * n for _ in range(num_slots)]
     return history
 
 
 def _snapshot(cache, history, t):
-    """Copy current cache state into column t of history."""
+    # copy state of cachse into history grid
     for s, page in enumerate(cache):
         if page is not None:
             history[s][t] = page
@@ -48,14 +53,14 @@ def simulate_fifo(ref, num_slots):
     markers = []
 
     for t, page in enumerate(ref):
-        if page in cache:
+        if page in cache: # check if the page is already in the cache and then marks it as a "hit"
             hits += 1
             markers.append('+')
         else:
-            if filled < num_slots:           # initial fill phase
+            if filled < num_slots:           # inserts page into cache if there is available space
                 slot = filled
                 filled += 1
-            else:                            # FIFO eviction
+            else:                            # if no space available and the page is not already in the cache, runs fifo to evict the first one in
                 slot = ptr
                 ptr = (ptr + 1) % num_slots
             cache[slot] = page
@@ -77,17 +82,18 @@ def simulate_lru(ref, num_slots):
     markers = []
 
     for t, page in enumerate(ref):
-        if page in cache:
+        # same logic if page is already in cache or if there is empty space
+        if page in cache: 
             hits += 1
             markers.append('+')
             slot = cache.index(page)
-            last_used[slot] = t
+            last_used[slot] = t # updates last access time of slot to current time step
         else:
             if filled < num_slots:
                 slot = filled
                 filled += 1
             else:
-                # Evict slot with smallest last_used time
+                # LRU logic, looks at all slot indices to find one with smallest last_used value and then evicts said page
                 slot = min(range(num_slots), key=lambda i: last_used[i])
             cache[slot] = page
             last_used[slot] = t
@@ -103,8 +109,8 @@ def simulate_lru(ref, num_slots):
 
 def simulate_lfu(ref, num_slots):
     cache     = [None] * num_slots
-    freq      = [0]    * num_slots   # access count while in cache
-    last_used = [-1]   * num_slots
+    freq      = [0]    * num_slots   # tracks number of accesses for each slot 
+    last_used = [-1]   * num_slots # same as LRU, tracks last access time which is used for a tie breaker. 
     filled = 0
     hits = 0
     n = len(ref)
@@ -116,15 +122,15 @@ def simulate_lfu(ref, num_slots):
             hits += 1
             markers.append('+')
             slot = cache.index(page)
-            freq[slot]      += 1
-            last_used[slot]  = t
+            freq[slot]      += 1 # increase frequency count for a page hit 
+            last_used[slot]  = t # updates access time same as LRU
         else:
             if filled < num_slots:
                 slot = filled
                 filled += 1
-            else:
+            else: # LFU logic, finds the page with the lowest frequency in the cache
                 min_freq   = min(freq)
-                candidates = [i for i in range(num_slots) if freq[i] == min_freq]
+                candidates = [i for i in range(num_slots) if freq[i] == min_freq] # creates a list of identical frequencies to determine if a tie breaker is necessary
                 if len(candidates) == 1:
                     slot = candidates[0]
                 else:
@@ -142,8 +148,6 @@ def simulate_lfu(ref, num_slots):
 
 
 # MIN (Optimal)
-#   If page has no future use, treat distance as infinity.
-#   Ties resolved by lowest slot number.
 
 def simulate_min(ref, num_slots):
     cache  = [None] * num_slots
@@ -164,16 +168,16 @@ def simulate_min(ref, num_slots):
             else:
                 # Compute next-use distance for every cached page
                 future = []
-                for s in range(num_slots):
+                for s in range(num_slots): #loops every current cached page
                     try:
-                        next_use = ref.index(cache[s], t + 1)
+                        next_use = ref.index(cache[s], t + 1) # searches the reference string to find when the page will be used again.
                     except ValueError:
                         next_use = float('inf')   # never used again
                     future.append(next_use)
 
                 max_fut    = max(future)
                 candidates = [i for i in range(num_slots) if future[i] == max_fut]
-                slot = candidates[0]              # lowest slot number
+                slot = candidates[0] # swaps out page with most distance before next use (handles tiebreaker by just picking first one in list)
             cache[slot] = page
             markers.append('-')
         _snapshot(cache, history, t)
@@ -185,7 +189,7 @@ def simulate_min(ref, num_slots):
 
 def simulate_mru(ref, num_slots):
     cache     = [None] * num_slots
-    last_used = [-1]   * num_slots
+    last_used = [-1]   * num_slots # same as LRU
     filled = 0
     hits   = 0
     n      = len(ref)
@@ -203,7 +207,7 @@ def simulate_mru(ref, num_slots):
                 slot = filled
                 filled += 1
             else:
-                # Evict most recently used slot
+                # Evict most recently used slot by taking max of last used, instead of min
                 slot = max(range(num_slots), key=lambda i: last_used[i])
             cache[slot]     = page
             last_used[slot] = t
@@ -214,7 +218,7 @@ def simulate_mru(ref, num_slots):
 
 
 # RAND
-#   Uses the shared random state so results are reproducible with the seed.
+# uses the shared random state so results are reproducible with the seed.
 
 def simulate_rand(ref, num_slots):
     cache  = [None] * num_slots
@@ -241,20 +245,16 @@ def simulate_rand(ref, num_slots):
     return history, markers, hits
 
 
-# Display
+# for printing out results
 
 def display_results(ref, results, num_slots, wrap=WRAP):
-    """
-    Print all algorithm states aligned with the reference string.
-    Long sequences are wrapped every `wrap` items for readability.
-    """
+    # print all algorithm states aligned with the reference string.
+    # long sequences are wrapped every `wrap` items for readability.
     n = len(ref)
 
     # Compute a uniform column-prefix width 
-    # Format: " ALGO  SN: "  where algo is left-padded to 4, SN right-padded
     max_algo_w = max(len(a) for a in ALGO_ORDER)          # 4  (FIFO / RAND)
     slot_w     = len(str(num_slots))                       # 1 or 2
-    # " " + algo + " " + slot + ": "
     prefix_len = 1 + max_algo_w + 1 + slot_w + 2
 
     ref_prefix = "Ref Str:".ljust(prefix_len)
@@ -312,6 +312,7 @@ def display_results(ref, results, num_slots, wrap=WRAP):
 # Main
 
 def main():
+    
     ref_len   = get_valid_input("Enter page reference pattern length: ", 10, 100)
     num_pages = get_valid_input("Enter number of unique pages: ", 2, 15)
     num_slots = get_valid_input("Enter number of slots: ", 2, 10)
@@ -319,18 +320,21 @@ def main():
     while True:
         try:
             seed = int(input("Enter a seed: "))
+            print(seed)
             break
         except ValueError:
             print("  Invalid input. Please enter an integer.")
 
     # Generate reference string
     random.seed(seed)
+    
     page_pool = list(string.ascii_uppercase[:num_pages])
     ref       = random.choices(page_pool, k=ref_len)
 
     # Run all algorithms
-    # RAND uses random.randint and shares the same seeded state, so results
+    # RAND uses random.randint and shares the same state
     # are fully reproducible for a given seed.
+    
     results = {
         'FIFO': simulate_fifo(ref, num_slots),
         'LRU':  simulate_lru (ref, num_slots),

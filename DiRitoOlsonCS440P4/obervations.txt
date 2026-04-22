@@ -1,0 +1,11 @@
+We noticed after running 5 different tests with different pattern lengths, unique
+pages, and number of slots, MIN/Optimal was in the list of best algorithms every time.
+This was expected, as it is the considered the baseline for judging an algorithms 
+efficiecnt and reducing the amount of page faults. It appeared that FIFO was in the 
+worst algorithm category almost every time, which was also expected, as it's the most primitive.
+LRU and LFU were about tied in success based on our trials, probably due to the fact
+that in the first couple of runs while filling the first few slots, they are almost identical.
+The least recently used will most likely match the least frequently used until you have enough 
+of the REF parsed through to determine which pages are most/least used. Overall, all trials 
+performed as expected based on our understanding of the algorithms from class and proved as a 
+helpful demonstration for our understanding. 
